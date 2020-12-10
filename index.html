@@ -59,6 +59,9 @@
         //     myBackpack.brand = 'jansport'
         // - Use camel-case when naming your variables: first letter of each word is capitalized
         let itemsInCartCount = 0; // number data type
+        
+        // declare a define a variable representing the total cost of the cart
+        let cartTotal = 0;
 
         // Array is a list of values. Here, we're saying "turn the list of HTML button
         // elements into a list of values we can work with in JavaScript:"
@@ -78,10 +81,20 @@
 
               console.log("itemsInCartCount:", itemsInCartCount);
 
+              // Update cartTotal
+              itemTotal = (button.getAttribute("data-price") * 10 * .1);
+              cartTotal = cartTotal + itemTotal; 
+              console.log("cart total:", cartTotal);
+
               // Update text of HTML element with the "cart-count":
               document.getElementById(
                 "cart-count"
               ).innerText = itemsInCartCount;
+
+              // Update text of HTML element with the "cart-total"
+              document.getElementById(
+                "cart-total"
+              ).innerText = cartTotal.toString();
             });
           }
         );
