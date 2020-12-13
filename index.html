@@ -82,8 +82,9 @@
               console.log("itemsInCartCount:", itemsInCartCount);
 
               // Update cartTotal
-              itemTotal = (button.getAttribute("data-price") * 10 * .1);
-              cartTotal = cartTotal + itemTotal; 
+              let itemTotal = (button.getAttribute("data-price") * 10 * .1);
+              cartTotal = Math.round(((cartTotal + itemTotal) + Number.EPSILON) * 100) / 100; 
+              //Math.round((num + Number.EPSILON) * 100) / 100
               console.log("cart total:", cartTotal);
 
               // Update text of HTML element with the "cart-count":
@@ -102,6 +103,8 @@
 
       function initializeCartWithList() {
         const itemsInCart = []; // Array data type
+        let subTotal = 0;
+        let cartTotal = 0;
 
         Array.from(document.querySelectorAll(".add-to-cart")).forEach(
           (button) => {
@@ -113,7 +116,8 @@
 
               // Add item to cart array (goes last in list):
               itemsInCart.push(product);
-
+        
+              subTotal = subTotal + price
               console.log("itemsInCart:", itemsInCart);
 
               // Get number of items in cart array:
@@ -121,9 +125,13 @@
 
               console.log("itemsInCartCount:", itemsInCartCount);
 
+              cartTotal = Math.round((subTotal + Number.EPSILON) * 100) / 100
+
               document.getElementById(
                 "cart-count"
               ).innerText = itemsInCartCount;
+
+              document.getElementById("cart-total").innerText = cartTotal.toString();
             });
           }
         );
@@ -136,8 +144,8 @@
         // If you finish, update price using initializeCartWithList
         //
         // To toggle comments: Place your cursor on the line of code and press CMD + /
-        initializeCartWithCount();
-        // initializeCartWithList();
+        // initializeCartWithCount();
+        initializeCartWithList();
       });
     </script>
   </body>
